@@ -52,17 +52,17 @@ public class Paddle : MonoBehaviour
         if(TouchWorldPosition2.y < 0 & player == "Player1")
         {
             TouchWorldPosition.x = TouchWorldPosition2.x;
-            return TouchWorldPosition2;
+            return TouchWorldPosition;
         }
         if(TouchWorldPosition1.y > 0 & player == "Player2")
         {   
             TouchWorldPosition.x = TouchWorldPosition1.x;
-            return TouchWorldPosition1;
+            return TouchWorldPosition;
         }
         if(TouchWorldPosition2.y > 0 & player == "Player2")
         {
             TouchWorldPosition.x = TouchWorldPosition2.x;
-            return TouchWorldPosition2;
+            return TouchWorldPosition;
         }
         return Vector3.zero;
     }
