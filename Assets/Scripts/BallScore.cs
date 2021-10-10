@@ -1,30 +1,34 @@
-//using System.Collections;
-//using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class BallScore : MonoBehaviour
 {   
-    public Rigidbody2D BallRigidbody, Player1Paddel, Player2Paddel, CPU_Paddle;
-    public EdgeCollider2D ScreenBounds;
+    [SerializeField]
+    private Rigidbody2D BallRigidbody, Player1Paddel, Player2Paddel, CPU_Paddle;
+    [SerializeField]
+    private EdgeCollider2D ScreenBounds;
     int Player1Score, Player2Score;
-    public Text Player1ScoreText, Player2ScoreText, WonText, WonText2Player;
-    public Button ButtonToMenu;
-    Vector2 force;
+    [SerializeField]
+    private Text Player1ScoreText, Player2ScoreText, WonText, WonText2Player, WonText2Player2, CountdownText;
+    [SerializeField]
+    private Button ButtonToMenu;
+    private Vector2 force;
     int SpeedForce = 3;
-    AudioSource _audioSource;
-    public AudioClip PaddleHit, WallHit, Miss;
-
-    // Start is called before the first frame update
+    [SerializeField]
+    private AudioSource _audioSource;
+    [SerializeField]
+    private AudioClip PaddleHit, WallHit, Miss;
+    
     void Start()
     {
         _audioSource = GetComponent<AudioSource>();
-        ResetBall();
+        // ResetBall();
         WonText.gameObject.SetActive(false);
         WonText2Player.gameObject.SetActive(false);
+        WonText2Player2.gameObject.SetActive(false);
         ButtonToMenu.gameObject.SetActive(false);
     }
-    
     void PlaySound(string clip)
     {
         //_audioSource = GetComponent<AudioSource>();
@@ -45,7 +49,7 @@ public class BallScore : MonoBehaviour
         }
     }
     
-    void ResetBall()
+    public void ResetBall()
     {   
         BallRigidbody.velocity = Vector2.zero;
         BallRigidbody.position = Vector2.zero;
@@ -53,26 +57,21 @@ public class BallScore : MonoBehaviour
         force.x = Random.value < 0.5f ? -1.0f : 1.0f;
         BallRigidbody.AddForce( force * SpeedForce );
     }
-    // Update is called once per frame
-    void Update()
-    {
-        //Debug.Log(Player1Paddel.velocity.x);
-    }
 
     private void Win()
     {
-        if(PongConfig.SinglePlayer)
+        if(settings.SinglePlayer)
         {
             if(Player1Score == 10)
             {   
-                WonText.text = "Sie haben gewonnen!";
-                WonText.gameObject.SetActive(true);
+                WonText.text = "Gewonnen!";
+                show1PlayerText();
                 GameEnd();
             }
             if(Player2Score == 10)
             {   
-                WonText.text = "Sie haben verloren!";
-                WonText.gameObject.SetActive(true);
+                WonText.text = "Leider verloren.";
+                show1PlayerText();
                 GameEnd();
             }
         }
@@ -80,18 +79,29 @@ public class BallScore : MonoBehaviour
         {
             if(Player1Score == 10)
             {   
-                WonText2Player.text = "Spieler 1 hat gewonnen!";
-                WonText2Player.gameObject.SetActive(true);
+                WonText2Player.text = "Gewonnen!";
+                WonText2Player2.text = "Verloren.";
+                show2PlayerText();
                 GameEnd();
             }
             if(Player2Score == 10)
             {   
-                WonText2Player.text = "Spieler 2 hat gewonnen!";
-                WonText2Player.gameObject.SetActive(true);
+                WonText2Player.text = "Verloren.";
+                WonText2Player2.text = "Gewonnen!";
+                show2PlayerText();
                 GameEnd();
             }
         }
 
+    }
+    void show1PlayerText()
+    {
+        WonText.gameObject.SetActive(true);
+    }
+    void show2PlayerText()
+    {
+        WonText2Player.gameObject.SetActive(true);
+        WonText2Player2.gameObject.SetActive(true);
     }
     private void GameEnd()
     {

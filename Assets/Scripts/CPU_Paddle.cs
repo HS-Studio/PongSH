@@ -11,20 +11,18 @@ public class CPU_Paddle : Paddle
     // Start is called before the first frame update
     void Start()
     {
-        if(PongConfig.SinglePlayer == false)
+        if(!settings.SinglePlayer)
         {
             gameObject.SetActive(false);
         }
-        Difficulty = PongConfig.DifficultyLevel * 0.1f;
-        //Debug.Log(PongConfig.DifficultyLevel);
+        Difficulty = settings.DifficultyLevel * 0.1f;
+        //Debug.Log(settings.DifficultyLevel);
     }
 
-    // Update is called once per frame
-    void Update()
-    {   
-    }
     void FixedUpdate()
     {
+        if(countdown.isPaused) return;
+        
         if(Ball.position.y > 0)
         {
             if( Ball.velocity.y > 0.0f)

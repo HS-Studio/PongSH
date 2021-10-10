@@ -13,11 +13,6 @@ public class BorderCollider: MonoBehaviour
         //Adding Edge Collider
         _edgeCollider2D = gameObject.GetComponent<EdgeCollider2D>();
         
-        //Adding Rigid body as a kinematic for collision detection
-        //_rigidbody2D = gameObject.AddComponent<Rigidbody2D>();
-        //_rigidbody2D.bodyType = RigidbodyType2D.Static;
-        //_rigidbody2D.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
-        
         //Assigning canvas
         _canvas = GetComponent<Canvas>();
         
@@ -29,7 +24,6 @@ public class BorderCollider: MonoBehaviour
     public void GetCornerCoordinate()
     {
         // Assign corners coordinate in the variables
-        
         _topLeft = new Vector2(-x,y); // Top Left Corner
         _topRight = new Vector2(x,y); // Top Right Corner
         _bottomLeft = new Vector2(-x,-y); // Bottom Left Corner

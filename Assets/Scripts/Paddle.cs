@@ -32,7 +32,7 @@ public class Paddle : MonoBehaviour
         PaddleMoveAction2 = PaddleMove2.UI.Point2;
         PaddleMoveAction2.Enable();
     }
-    protected Vector3 GetTouchPosition(string player)
+    protected Vector3 GetTouchPosition(int player)
     {
         TouchWorldPosition = Vector3.zero;
 
@@ -44,26 +44,33 @@ public class Paddle : MonoBehaviour
         TouchPosition2Vector3 = new Vector3(TouchPosition2.x, TouchPosition2.y, MainCamera.nearClipPlane);
         TouchWorldPosition2 = MainCamera.ScreenToWorldPoint(TouchPosition2Vector3);
 
-        if(TouchWorldPosition1.y < 0 & player == "Player1")
+        // if first finger on bottom screen and called from player 1
+        if(TouchWorldPosition1.y < 0 & player == 1)
         {
             TouchWorldPosition.x = TouchWorldPosition1.x;
             return TouchWorldPosition;
         }
-        if(TouchWorldPosition2.y < 0 & player == "Player1")
+        // if second finger on bottom screen and called from player 1
+        if(TouchWorldPosition2.y < 0 & player == 1)
         {
             TouchWorldPosition.x = TouchWorldPosition2.x;
-            return TouchWorldPosition2;
+            return TouchWorldPosition;
         }
-        if(TouchWorldPosition1.y > 0 & player == "Player2")
+        // if first finger on top screen and called from player 2
+        if(TouchWorldPosition1.y > 0 & player == 2)
         {   
             TouchWorldPosition.x = TouchWorldPosition1.x;
-            return TouchWorldPosition1;
+            return TouchWorldPosition;
         }
-        if(TouchWorldPosition2.y > 0 & player == "Player2")
+        // if second finger on top screen and called from player 2
+        if(TouchWorldPosition2.y > 0 & player == 2)
         {
             TouchWorldPosition.x = TouchWorldPosition2.x;
-            return TouchWorldPosition2;
+            return TouchWorldPosition;
         }
-        return Vector3.zero;
+        else
+        {
+            return Vector3.zero;
+        }
     }
 }

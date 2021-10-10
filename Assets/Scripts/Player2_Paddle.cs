@@ -6,16 +6,17 @@ public class Player2_Paddle : Paddle
     // Start is called before the first frame update
     void Start()
     {
-        if(PongConfig.SinglePlayer)
+        if(settings.SinglePlayer)
         {
             gameObject.SetActive(false);
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        GetTouchPosition("Player2");
+        if(countdown.isPaused) return;
+        
+        GetTouchPosition(2);
         force.x = TouchWorldPosition.x - PaddlePosition.position.x;
         PaddleRigidbody.AddForce(force);
     }
